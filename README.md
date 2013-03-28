@@ -3,7 +3,7 @@
 
 ### Introduction
 
-This is a fork of inkedmn's bbedit-gist-maker, but removing the bbedit stuff, and updating some of the python code.
+This is a fork of [inkedmn's](https://github.com/inkedmn) [bbedit-gist-maker](inkedmn/bbedit-gist-maker), but removing the bbedit stuff, and updating some of the python code.
 
 ### Requirements
 
