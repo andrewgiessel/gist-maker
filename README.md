@@ -8,6 +8,7 @@ This is a fork of [inkedmn's](https://github.com/inkedmn) [bbedit-gist-maker](in
 ### Requirements
 
 * An account on Github
+* Python
 
 ### Usage
 
