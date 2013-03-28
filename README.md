@@ -20,5 +20,5 @@ This will create a private gist; to create a public gist, add the `-p` flag.
 
 ### TODO
 
-Fix?  Doesn't seem to work as above...
-Change optparse into argparse
+* Fix?  Doesn't seem to work as above...
+* Change optparse into argparse
