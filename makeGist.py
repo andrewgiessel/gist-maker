@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+# Modified by Andrew Giessel in 2013; the same license below applies.
 # Copyright (c) 2012 Brett Kelly
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
