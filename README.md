@@ -16,13 +16,16 @@ To use the Python program on its own, run it like this:
 
 `$ python makeGist.py -d "gist description" file.txt`
 
-In this case, the filename is taken from the final, required argument.
+In this case, the filename is taken from the final argument (i.e. the name of the file).
 
 Alternatively, you can use `STDIN`, like so:
 
 `$ python makeGist.py -f file.txt -d "gist description" < file.txt`
 
-The filename and description arguments are optional.  By default, this script will create a private gist; to create a public gist, add the `-p` or `--public` flag.
+Other notes:
+* The filename and description arguments are optional.  
+* By default, this script will create a private gist; to create a public gist, add the `-p` or `--public` flag.  
+* If you run `chmod +x makeGist.py` you'll be able to run the code without having to prepend `python`.
 
 ### TODO
 
