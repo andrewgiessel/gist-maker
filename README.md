@@ -12,7 +12,9 @@ This is a fork of [inkedmn's](https://github.com/inkedmn) [bbedit-gist-maker](in
 
 ### Usage
 
-To use the Python program on its own, run it like this:
+First, you'll need to change the two lines in the top of the file to reflect your username and password.  The code will attempt to grab your API key and store it in `~/.ghtoken`.  There probably is a better way to do this- please send a PR if you have ideas!
+
+Anyway, after that, to use the code, run it like this:
 
 `$ python makeGist.py -d "gist description" file.txt`
 
