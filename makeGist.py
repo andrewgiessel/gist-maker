@@ -23,7 +23,7 @@ import urllib2
 import urllib
 import base64
 import json
-from optparse import OptionParser
+import argparse
 import os.path
 import sys
 
@@ -65,12 +65,11 @@ class GistFile(object):
         
 def makeOptsParser():
 	"options for Filename, description, public/private"
-	parser = OptionParser()
-	parser.add_option('-f','--filename', dest="filename")
-	parser.add_option('-d','--description', dest="description", default="")
-	parser.add_option('-p','--public', action="store_true", dest="public")
-	parser.add_option('-c','--contents', dest="gist_text")
-	return parser	
+        parser = argparse.ArgumentParser(description='Create a gist from the commandline.')
+        parser.add_argument('-f', '--filename', help='Filename for gist')
+        parser.add_argument('-d', '--description', default='', help='Description string for gist')
+        parser.add_argument('-p', '--public', action="store_true", default=False, help='Make the Gist public')
+        return parser.parse_args()
 
 def loadGithubAuthToken():
     "Get a stored auth token if we already have one"
@@ -118,22 +117,27 @@ def createGist(token, gist):
         return jresp['html_url']
     return None
 
-(opts, args) = makeOptsParser().parse_args()
+if __name__=="__main__":
+    
+    args = makeOptsParser()
 
-## First, attempt to load the existing token
-token = loadGithubAuthToken()
+    ## First, attempt to load the existing token
+    token = loadGithubAuthToken()
  
-## If no token exists, get a new one and save it    
-if not token:
-    token = getGithubAuthToken()
+    ## If no token exists, get a new one and save it    
     if not token:
-        raise SystemExit('Broken')
-    saveGithubAuthToken(token)
+        token = getGithubAuthToken()
+        if not token:
+            raise SystemExit('Broken')
+        saveGithubAuthToken(token)
 
-snippetText = opts.gist_text
+    ### let's use stdin for the source of the file
+    if not os.isatty(0):
+        with sys.stdin as f:
+            fileContents = f.read()
+    
+    gFile = GistFile(args.filename, fileContents)
+    gist = Gist(args.description, gFile, args.public)
+    gistUrl = createGist(token, gist)
 
-gFile = GistFile(opts.filename, snippetText)
-gist = Gist(opts.description, gFile, opts.public)
-gistUrl = createGist(token, gist)
-
-print gistUrl
+    print gistUrl
