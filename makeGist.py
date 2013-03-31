@@ -65,12 +65,13 @@ class GistFile(object):
         self.content = content
         
 def makeOptsParser():
-	"options for Filename, description, public/private"
-        parser = argparse.ArgumentParser(description='Create a gist from the commandline.')
-        parser.add_argument('-f', '--filename', help='Filename for gist')
-        parser.add_argument('-d', '--description', default='', help='Description string for gist')
-        parser.add_argument('-p', '--public', action="store_true", default=False, help='Make the Gist public')
-        return parser.parse_args()
+    "options for Filename, description, public/private"
+    parser = argparse.ArgumentParser(description='Create a gist from the commandline.')
+    parser.add_argument('-f', '--filename', help='Filename for gist')
+    parser.add_argument('-d', '--description', default='', help='Description string for gist')
+    parser.add_argument('-p', '--public', action="store_true", default=False, help='Make the Gist public')
+    parser.add_argument('file', nargs='?', default=sys.stdin)
+    return parser.parse_args()
 
 def loadGithubAuthToken():
     "Get a stored auth token if we already have one"
@@ -134,9 +135,14 @@ if __name__=="__main__":
 
     ### let's use stdin for the source of the file
     if not os.isatty(0):
-        with sys.stdin as f:
+        with args.file as f:
             fileContents = f.read()
-    
+    else:
+        with open(args.file) as f:
+            fileContents = f.read()
+        args.filename = args.file
+        
+
     gFile = GistFile(args.filename, fileContents)
     gist = Gist(args.description, gFile, args.public)
     gistUrl = createGist(token, gist)
