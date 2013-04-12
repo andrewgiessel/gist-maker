@@ -148,3 +148,4 @@ if __name__=="__main__":
     gistUrl = createGist(token, gist)
 
     print gistUrl
+    print 'if this is a ipynb file, you can view it on nbviewer here: ' + 'http://nbviewer.ipython.org/' + gistUrl.split('/')[3]
